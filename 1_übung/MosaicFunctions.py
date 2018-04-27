@@ -73,9 +73,10 @@ def decide_color_circle(x, y, size):
 
 def decide_color_chess(x, y, size):
     # overwrite the content of the function
-    if (x//50) % 2 == 0 and (y//50) % 2 == 0:
+    size = size / 8
+    if (x//size) % 2 == 0 and (y//size) % 2 == 0:
         return 'BLACK'
-    if (x//50) % 2 == 1 and (y//50) % 2 == 1:
+    if (x//size) % 2 == 1 and (y//size) % 2 == 1:
         return 'BLACK'
     else:
         return 'WHITE'

@@ -58,13 +58,18 @@ def decide_color_triangles(x, y, size):
 
 def decide_color_circle(x, y, size):
     # overwrite the content of the function
-    if ((x-200)**2 +  (y-200)**2) < 105625 and ((x-200)**2 +  (y-200)**2) > 40000 and x < size/2:
-        return 'WHITE'
-    elif ((x-200)**2 +  (y-200)**2) < 105625 and ((x-200)**2 +  (y-200)**2) > 40000 and x > size/2:
-        return 'RED'
-    elif x in range(0,199):
+    circle = (x-200)**2 +  (y-200)**2
+    if circle < (105625/1) and circle > 15000 and y in range (0, 200):
         return 'BLUE'
-    return 'GRAY'
+    elif circle < (105625/1) and circle > 15000 and y in range (200, 400):
+        return 'GRAY'
+    elif circle < (105625/1) and circle > 15000 and y in range (200, 400):
+        return 'GRAY'
+    elif circle < (105625/1) and circle > 15000 and y in range (0, 200):
+        return 'BLUE'
+    elif x in range(0,199):
+        return 'WHITE'
+    return 'RED'
 
 def decide_color_chess(x, y, size):
     # overwrite the content of the function

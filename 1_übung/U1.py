@@ -21,12 +21,18 @@ def findFriend( in1, in2 ):
         res = bool(1)
     return res
         
-def testFunctions():
+def testMultList():
     if multList([1,2,4,5,6]) == 240:
-        print("multList Test bestanden")
+        print("multList Test1 bestanden")
     else:
-        print("multList Test nicht bestanden")
-        
+        print("multList Test1 nicht bestanden")
+
+    if multList([4,5,6]) == 120:
+        print("multList Test2 bestanden")
+    else:
+        print("multList Test2 nicht bestanden")
+
+def testEchtTeiler():
     if echtTeiler(250) == [1, 2, 5, 10, 25, 50, 125]:
         print("echtTeiler Test1 bestanden")
     else:
@@ -37,6 +43,7 @@ def testFunctions():
     else:
         print("echtTeiler Test2 nicht bestanden")
 
+def testFindFriend():
     if findFriend(1210,1184) == True:
         print("findFriend Test1 bestanden")
     else:

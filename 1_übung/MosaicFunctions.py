@@ -92,9 +92,9 @@ def decide_color_illusion_1(x, y, size):
 
 def decide_color_illusion_2(x, y, size):
     # overwrite the content of the function
-    if (x//5) % 4 == 0 and (y//5) % 4 == 0:
+    if (x//25) % 4 == 0 and (y//25) % 4 == 0:
         return 'WHITE'
-    elif (x//5) % 4 == 0 or (y//5) % 4 == 0:
+    elif (x//25) % 4 == 0 or (y//25) % 4 == 0:
         return 'GREY'
     else:
         return "BLACK"

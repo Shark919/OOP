@@ -1,3 +1,7 @@
+# Objektorientierte Programmierung
+# Tutorium: Freitag 08-10 Uhr
+# Christoph Meise, Tim Walz
+
 # Berechnet Produkt einer eingegebenen Liste
 def multList( inputList ):
     res = 1

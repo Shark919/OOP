@@ -1,3 +1,5 @@
 .ipynb_checkpoints/
 .vscode/
 *$py.class
+.DS_STORE
+__pycache__

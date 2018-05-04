@@ -63,8 +63,10 @@ def test_zipWith():
 def my_random(lower, upper):
     i = 0
     dictionary = {}
-    while str(random.randint(lower, upper)) not in dictionary:
-        dictionary[str(random.randint(lower, upper))] = 1
+    x = random.randint(lower, upper)
+    while str(x) not in dictionary:
+        dictionary[str(x)] = 1
+        x = random.randint(lower, upper)
         i += 1
     return i
 

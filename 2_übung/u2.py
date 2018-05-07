@@ -97,6 +97,13 @@ def createBD():
     day = random.randint(1, 28)
     return str(day).zfill(2) + str(month).zfill(2) + str(year)
 
+# Testmethode der 4. Aufgabe Teil a
+def test_double_birthday():
+    if double_birthday() > 0:
+        print("Test double_birthday bestanden")
+    else:
+        print("Test double_birthday nicht bestanden")
+
 # Aufgabe 4 Teil b
 def repeat_double_birthday():
     duplicates = []
@@ -110,9 +117,24 @@ def repeat_double_birthday():
         i +=1
     return duplicates
 
+# Testmethode der 4. Aufgabe Teil b
+def test_repeat_double_birthday():
+    result = repeat_double_birthday()
+    if len(result) > 0:
+        print("Test repeat_double_birthday bestanden")
+    else:
+        print("Test repeat_double_birthday nicht bestanden")
+
 # Aufgabe 4 Teil c
-# stimmt aber nicht
 #def birthday_paradox(n):
+#    listOfDuplicates = []
+#    for x in range(0, n):
+#        duplicates = repeat_double_birthday()
+#        listOfDuplicates.append(duplicates)
+#    numberOfDuplicates = 0
+#    for x in range(0, listOfDuplicates.count()):
+#        for y in range(0, listOfDuplicates[x].count())
+#        listOfDuplicates[x][]
 #    duplicates = repeat_double_birthday()
 #    if str(n) in duplicates:
 #        res = duplicates

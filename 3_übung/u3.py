@@ -1,3 +1,7 @@
+# Objektorientierte Programmierung
+# Tutorium: Freitag 08-10 Uhr
+# Christoph Meise, Tim Walz
+
 import random
 
 # 1. Aufgabe
@@ -161,8 +165,8 @@ def addOne(x):
 
 def test_game():
     print("We will play two games, one with a 5*5 matrix and 0.7 p, one with a 6*8 matrix and 0.2 p")
-    print(printSpielFeld(generateSolution(newSpiel(createField(5,5), 0.7))))
-    print(printSpielFeld(generateSolution(newSpiel(createField(6,8), 0.2))))
+    printSpielFeld(generateSolution(newSpiel(createField(5,5), 0.7)))
+    printSpielFeld(generateSolution(newSpiel(createField(6,8), 0.2)))
 
 def doAllTests():
     test_countChar()

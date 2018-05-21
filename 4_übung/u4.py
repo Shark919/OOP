@@ -6,7 +6,6 @@ Created on Sat May 19 14:24:51 2018
 """
 
 import random
-import math
 
 # Aufgabe 1
 # 1a)
@@ -46,99 +45,41 @@ def gen_randlist(a,b,n):
 # als Quicksort mit den rekursiven Funktionsaufrufen
 # Insertionsort ist auch stabiler als Quicksort und braucht weniger Speicher
 
+def sort(A):
+    my_quicksort(A, 0, len(A) -1)
+    return A
+
 def my_quicksort(A, low, high):
     if low<high:
-        m = partition_median(A, low, high)
+        m = partition(A, low, high)
         my_quicksort(A, low, m)
         my_quicksort(A, m+1, high)
 
-def median(a, b, c):
-    if ( a - b) * (c - a) >= 0:
-        return a
-
-    elif (b - a) * (c - b) >= 0:
-        return b
-
-    else:
-        return c
-
-
-def partition_median(array, leftend, rightend):
-    left = array[leftend]
-    right = array[rightend-1]
-    length = rightend - leftend
-    if length % 2 == 0:
-        middle = array[leftend + length//2 - 1]
-    else:
-        middle = array[leftend + length//2]
-  
-    
-
-    pivot = median(left, right, middle)
-
-    pivotindex = array.index(pivot) #only works if all values in array unique
-
-    array[pivotindex] = array[leftend]
-    array[leftend] = pivot
-
-    i = leftend + 1
-    for j in range(leftend + 1, rightend):
-        if array[j] < pivot:
-            temp = array[j]
-            array[j] = array[i]
-            array[i] = temp
-            i += 1
-
-    leftendval = array[leftend]
-    array[leftend] = array[i-1]
-    array[i-1] = leftendval
-    print(array)
-    return i - 1 
-
-def partition1(A,low,high):
-#    pivot = my_pivot(A)
-#    pivotIndex = 0
-#    for i in range (low, high):
-#        if A[i] == pivot:
-#            pivotIndex = i
-    pivotIndex = 5
-    A[low], A[pivotIndex] = A[pivotIndex], A[low]
-    
-    pivot = A[low]
-    i = low;
+def partition(A, low, high):
+    pivotIndex = pivot_median(A, low, high)
+    pivot = A[pivotIndex]
+    A[pivotIndex], A[low] = A[low], A[pivotIndex]
+    i = low
     for j in range(low+1,high+1):
-        if( A[j] < pivot ):
+        if ( A[j] < pivot ):
             i=i+1
             A[i], A[j] = A[j], A[i]
     A[i], A[low] = A[low], A[i]
     return i
  
-def my_pivot(list):
-    elements = select_three_random_elements(list)
-    return get_median(elements)
-
-def select_three_random_elements(list):
-    listLength = len(list)
-    if(listLength > 2):
-        elem1 = random.randint(0,listLength-1)
-        elem2 = random.randint(0,listLength-1)
-        while elem2 == elem1:
-            elem2 = random.randint(0,listLength-1)
-        elem3 = random.randint(0,listLength-1)
-        while elem3 == elem1 or elem3 == elem2:
-            elem3 = random.randint(0,listLength-1)
-        return [list[elem1],list[elem2],list[elem3]]
-    else:
-        return list
-    
-def get_median(list):
-    sortedList = sorted(list)
-    return sortedList[math.floor(len(sortedList)/2)]
+def pivot_median(A, low, high):
+    mid = (high + low) // 2
+    s = sorted([A[low], A[mid], A[high]])
+    if s[1] == A[low]:
+        return low
+    elif s[1] == A[mid]:
+        return mid
+    return high
 
 def test_my_quicksort():
     randlist = gen_randlist(1,10,10)
     print("random list is %s"  % randlist)
-    my_quicksort(randlist, 0, 9)
+    print("sorted list is %s" % sort(randlist))
     
 # Konkrete Eingabe: [5,1,3,5], im folgenden als Tupel betrachtet:
 # (5, "eins"), (1, ""), (3, ""), (5, "zwei")

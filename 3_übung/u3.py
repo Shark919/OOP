@@ -1,16 +1,25 @@
+# Objektorientierte Programmierung
+# Tutorium: Freitag 08-10 Uhr
+# Christoph Meise, Tim Walz
+
 import random
 
 # 1. Aufgabe
 def countChar(imp):
     res = {}
-    # Iteriere über imp
+    # Iterate imp
     for x in imp:
-        # Wenn x in imp addiere +1, sonst setze 1
+        # If x in imp add +1, else 1
         if x in res:
             res[x] = res.get(x) + 1
         else:
             res[x] = 1
     return res
+
+def test_countChar():
+    print("We will test the method countChar(imp) with the Words 'Bananenbaummann' and the sentence 'We love coding with python'.")
+    print(countChar("Bananenbaummann"))
+    print(countChar("We love coding with python"))
 
 # 2. Aufgabe
 # Aufgabe 2a
@@ -88,16 +97,21 @@ def test_all_get_gossip():
     
     
 # 3. Aufgabe
+# given height and width, we will use list comprehension to build the matrix
 def createField(height, width):
     return [[0 for x in range(width)] for y in range (height)]
 
+# given a matrix we will print this to our commandline, using *x to remove the brackets
 def printSpielFeld(imp):
     for x in imp:
         print(*x, sep=" ")
 
+# play a new game
 def newSpiel(matrix, p):
     i,j = 0,0
+    # iterate height
     for x in matrix:
+        # iterate width
         for y in x:
             if random.uniform(0,1) <= p:
                 matrix[i][j] = 'O'
@@ -108,14 +122,21 @@ def newSpiel(matrix, p):
         j = 0
     return matrix
 
+# solve the game
 def generateSolution(matrix):
     i,j = 0,0
 
+    # calc height of field
     height = len(matrix)
+    # calc width of field
     width = len(matrix[0])
+    # iterate height
     for x in matrix:
+        # iterate width
         for y in x:
+            # check if there is no hole
             if matrix[i][j] != 'O':  
+                # count surrounding holes
                 if i + 1 < height and matrix[i+1][j] == 'O':
                     matrix[i][j] = addOne(matrix[i][j])
                 if i + 2 < height and matrix[i+2][j] == 'O':
@@ -141,3 +162,15 @@ def addOne(x):
     if x == '.':
         return 1
     else: return x+1
+
+def test_game():
+    print("We will play two games, one with a 5*5 matrix and 0.7 p, one with a 6*8 matrix and 0.2 p")
+    printSpielFeld(generateSolution(newSpiel(createField(5,5), 0.7)))
+    printSpielFeld(generateSolution(newSpiel(createField(6,8), 0.2)))
+
+def doAllTests():
+    test_countChar()
+    test_gossip()
+    test_sim_gossip()
+    test_all_get_gossip()
+    test_game()

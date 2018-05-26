@@ -100,3 +100,53 @@ def aufgabe_3():
     print(b)
     c = -c
     assert (a > 0 and b > 0 and c > 0 and b == a - d + c) == True
+
+
+# erst if Bedingung Beweisen
+{P} = {x >= 0 && (x*y + z) == c}
+
+{B} = (x % 2 == 0)
+
+{P2} = {P} && {B} == {x >= 0 && (x*y + z) == c && x%2==0}
+
+{R} = {x//2 > 0 && ((x//2) * y + z) === c}
+
+{R2} = {x//2 > 0 && (x//2) * (y+y) + z === c}
+
+{P2} -> {R2}
+
+{R2} <-> {x//2 > 0 && ((x//2) * (y+y) + z) === c} 
+<-> {x//2 > 0 && ((x//2) * 2y + z) === c} 
+
+{P2} <-> {x >= 0 && (x*y + z) == c && x%2==0}
+
+x//2 > 0 wahr, da x>=0
+(x//2) * 2y + z) ergibt ganz Zahl c, weil: x//2==ganze Zahl, 
+ganzeZahl * 2y ergibt ganze Zahl (weil y vom typ int)
+und diese ganze Zahl plus eine ganze zahl z (typ int) ergibt c, eine ganze Zahl
+--> {P2} -> {R2}
+
+IF BEDINGUNG BEWIESEN
+
+jetzt else:
+
+{R} = {x-1 >= 0 && ((x-1)*y +z) == c}
+{R2} = {x-1 >= 0 && ((x-1)*y +(z+y)) == c}
+
+{P3} = {P} && {not B} 
+{P3} = {x >= 0 && (x*y + z) == c && x%2!==0}
+
+beweisen das gilt:
+{P3} -> {R2}&& 
+
+x >= 0 && x%2!==0 --> dann ist x>=1, also x-1 >= 0
+((x-1)*y +(z+y)) == c) ist damit auch wahr, weil x-1 ist ganze Zahl, 
+y ist ganze Zahl und (z+y) ist ganze Zahl, damit ist auch die Addition
+und Multiplikation vom typ int ->  {P3} -> {R2}
+
+ABSCHLUSS
+da der if-teil partiell korrekt ist ({P2} -> {R2})
+und der else-teil partiell korrekt ist ({P3} -> {R2}),
+ist auch die ganze Programmformel partiell korrekt.
+
+{Q} = {x >= 0 && (x*y+z)==c}

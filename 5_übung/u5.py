@@ -6,7 +6,7 @@
 import random
 import time
 
-# 2. Aufgabe
+# 1. Aufgabe
 
 def counting_sort(A, k):
     k += 1
@@ -20,7 +20,7 @@ def counting_sort(A, k):
             i += 1
     return A
 
-# 3. Aufgabe
+# 2. Aufgabe
 
 # Kein Counting-Sort, da wir eine große Spannweite an Integern abdecken wollen
 # Kein Mergesort, da recht viel O(n) zusätzlicher Speicher benötigt
@@ -84,3 +84,19 @@ def left(i):
 
 def right(i): 
     return i*2+1
+
+
+# 3. Aufgabe
+
+def aufgabe_3():
+    a = 10 
+    b = 10
+    c = -1000
+    assert (a > 0 and b > 0 and c < 0) == True
+    a = a + b - c
+    d = b
+    print(a, b, c)
+    b = a - b - c
+    print(b)
+    c = -c
+    assert (a > 0 and b > 0 and c > 0 and b == a - d + c) == True

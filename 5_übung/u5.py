@@ -101,7 +101,7 @@ def aufgabe_3():
     c = -c
     assert (a > 0 and b > 0 and c > 0 and b == a - d + c) == True
 
-
+"""
 # erst if Bedingung Beweisen
 {P} = {x >= 0 && (x*y + z) == c}
 
@@ -150,3 +150,170 @@ und der else-teil partiell korrekt ist ({P3} -> {R2}),
 ist auch die ganze Programmformel partiell korrekt.
 
 {Q} = {x >= 0 && (x*y+z)==c}
+"""
+def testInvariantA(A):
+    assert(A == A)
+
+def testInvariantB(A, i):
+    for j in range (0, i-1):
+        assert(A[j+1] >= A[j])
+
+def insertsort(A):
+    h = 1
+    i = 0
+    # invariante: A enthält nur Elemente aus A
+    testInvariantA(A)
+    while i < len(A):
+        j = i
+        temp = A[j]
+        # invariante: Elemente A[0] bis A[i-1] sind sortiert
+        testInvariantB(A, i)
+        while j>=h and A[j-h]>temp:
+            A[j] = A[j-h]
+            j = j-h
+        A[j] = temp
+        i = i+1
+    return A
+
+print(insertsort([3,2,5,2,6,1,6,5,42,5,1,9]))
+
+################################
+## Aufgabe 6
+################################
+# Algorithmus ist komplett selber ausgedacht, 
+# Implementierungsaufwand war mir am Ende aber einfach zu hoch für die 4 Punkte bei der begrenzten Zeit.
+# Funktioniert noch nicht für beliebig komplexe Matritzen, aber für die Beispiele im Test ist er korrekt
+# (es fehlt noch logik zum durchprobieren bei größeren Quadrate, im Kommentar ist code angeteasert)
+
+def findSquareInArrays(A, B):
+    # per definition smallest square is 2x2, 
+    # otherwise every single 1 is possible square, which is boring
+    start = 0
+    end = 0
+    #print('A %s and B %s' % (A,B))
+    for i in range (0, len(A)):
+        for j in range (0, len(B)):
+            if not(len(A[i]) == 0 or len(B[j]) == 0):
+                if not((A[i][1] - A[i][0]) < 1) or (B[j][1] - B[j][0] < 1):
+                    #print('yooo')
+                    if A[i][0] >= B[j][0]:
+                        start = A[i][0]
+                    else: 
+                        start = B[j][0]
+                    if A[i][1] <= B[j][1]:
+                        end = A[i][1]
+                    else:
+                        end = B[j][1]
+    #print('start %s and end %s' % (start,end))
+    if start == 0 and end == 0:
+        return []
+    return [start, end]
+
+def squareBiggerThanCurrent(square, current):
+    if len(square) >= 1:
+        currentLength = current[1] - current[0]
+        squareLength = square[1] - square[0]
+        if currentLength < squareLength:
+            return True
+    return False
+
+def getStreaksPerColumn(A):
+    streakStartIndex = 0
+    streakEndIndex = 0
+    currentStreak = 0
+    streaksPerColumn = []
+
+    # linear complexity, goes through every single number in matrix but only once (column by column)
+    for i in range (0,len(A[0])):
+            currentStreak = 0
+            foundStuff = False
+            streakArr = []
+            for j in range (0, len(A)):
+                if A[j][i] == 1:
+                    if currentStreak == 0: # a new streak in column started
+                        streakStartIndex = j
+                    currentStreak = currentStreak + 1
+                else: # streak ended
+                    if currentStreak > 0:
+                        streakEndIndex = j
+                        streakArr.append([streakStartIndex, streakEndIndex - 1])
+                        streakStartIndex = 0
+                        streakEndIndex = 0
+                        currentStreak = 0
+                        foundStuff = True
+                if A[j][i] == 1 and (j+1 >= (len(A))): # column ended with 1
+                    streakEndIndex = j                     
+                    streakArr.append([streakStartIndex, streakEndIndex])                    
+                    streakStartIndex = 0
+                    streakEndIndex = 0
+                    foundStuff = True
+                    currentStreak = 0
+            if foundStuff == False:
+                streakArr.append([])
+            streaksPerColumn.append(streakArr)
+    return streaksPerColumn
+
+def printMatrix(A):
+    for i in range (0,len(A)):
+        print(A[i])
+
+def getTupleFromArray(resultPoints):
+    resultTupleStart = (resultPoints[0][0], resultPoints[0][1])
+    resultTupleEnd = (resultPoints[1][0], resultPoints[1][1])
+    return (resultTupleStart, resultTupleEnd)
+
+def getStartAndEndPointFromStreaks(streaksPerColumn):
+    resultStart = [0,0]
+    resultEnd = [0,0]
+    # afterwards check for overlaps
+    # number of arrays with streaks < number of elements in matrix
+    # --> still linear complexity
+    print('streaks per col %s' % streaksPerColumn)
+    for i in range(0, len(streaksPerColumn) - 1):
+        
+        for j in range(i+1, len(streaksPerColumn)):
+            # skip emptys
+            if len(streaksPerColumn[j]) >= 1 and len(streaksPerColumn[i]) >= 1:
+                square = findSquareInArrays(streaksPerColumn[j-1], streaksPerColumn[j])
+                #print('Found a square at pos %s' % square)
+                #print('and current is %s' % [resultStart[0], resultEnd[1]])
+                #print('i is %s and j is %s' % (i,j))
+                if squareBiggerThanCurrent(square, [resultStart[0], resultEnd[1]]):
+                    #print('Found a square at pos %s' % square)
+                    if resultStart[0] == 0 and resultStart[1] == 0:
+                        resultStart = [square[0], i]
+                    resultEnd = [square[1], j]
+                    print('resultStart at %s resultEnd at %s' % (resultStart, resultEnd))
+
+    """for col in range(0, len(streaksPerColumn) - 1):
+        for streak in range(0, len(streaksPerColumn[i])):
+            lengthOfSide = streak[1]-streak[0]
+            # check overflow
+                for indexSquareCheck in range (col+1 ,col+lengthOfSide):
+                    if colHasSimilarStreak(streaksPerColumn(indexSquareCheck), streak)
+                    ...
+    """
+
+    return [resultStart, resultEnd]
+
+def matrixSquare(A):
+    printMatrix(A)
+    streaksPerColumn = getStreaksPerColumn(A)
+    resultPoints = getStartAndEndPointFromStreaks(streaksPerColumn)
+    resultTuple = getTupleFromArray(resultPoints)
+
+    if resultPoints[0][0] == 0 and resultPoints[0][1] == 0 and resultPoints[1][0] == 0 and resultPoints[1][1] == 0:
+        return ()
+    return resultTuple
+
+def test_matrixSquare():
+    print(matrixSquare([[0,0,0,0],[0,1,1,0],[0,1,1,0],[0,0,0,0]]))
+    print(matrixSquare([[0,0,0,0],[1,1,0,0],[1,1,0,0],[0,0,0,0]]))
+    print(matrixSquare([[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]]))
+    print(matrixSquare([[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]))
+    #print(matrixSquare([[0,0,1,1,0,1,0,0,0,0,0,0,0],[0,0,1,0,1,0,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,0],[0,0,0,0,0,1,1,1,1,1,1,1,0],[0,0,0,0,0,1,1,1,1,1,1,1,0],[0,1,0,1,0,1,0,1,0,1,0,1,0],[0,1,1,1,1,0,0,1,1,1,1,0,0]]))
+    #print(matrixSquare([[0,0,1],[0,0,0],[0,0,1]]))
+    
+test_matrixSquare()
+
+################################

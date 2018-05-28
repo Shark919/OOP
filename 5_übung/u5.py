@@ -6,7 +6,9 @@
 import random
 import time
 
-# 1. Aufgabe
+################################
+## Aufgabe 1
+################################
 
 def counting_sort(A, k):
     k += 1
@@ -20,11 +22,12 @@ def counting_sort(A, k):
             i += 1
     return A
 
-# 2. Aufgabe
-
+################################
+## Aufgabe 2
+################################
 # Kein Counting-Sort, da wir eine große Spannweite an Integern abdecken wollen
-# Kein Mergesort, da recht viel O(n) zusätzlicher Speicher benötigt
-# Kein Insertionsort, da wir ein großes mit großem N sortieren
+# Kein Mergesort, da O(n) zusätzlicher Speicher benötigt wird
+# Kein Insertionsort, da wir ein großes Array mit großem N sortieren
 # Kein Quicksort, da worst-case Performance von O(N^2)
 # Heapsort hat eine garaniterte Laufzeit von O(N log N) und eignet sich gut für 
 # große Inputs und wird deshalb hier verwendet.
@@ -86,21 +89,50 @@ def right(i):
     return i*2+1
 
 
-# 3. Aufgabe
+################################
+## Aufgabe 3
+################################
+"""
+Beweis der gegebenen Programmformel mittels Zuweisungsaxiom und Sequenzregel.
+Da {P}{R1}{S1}{R2} und {R2}{S2}{R3} und {R3}{S3}{R4} und {R4}{S4}{Q} gültig sind,
+ist auch {P}{S1}{S2}{S3}{S4}{Q} gültig.
 
-def aufgabe_3():
-    a = 10 
-    b = 10
-    c = -1000
+ {P} = {a>0 && b>0 && b<0}
+
+ {R1} = {a+b-c>0 && a+b-c-b-c>0 && -c>0 && a+b-c-b-c==a+b-c-b-c}
+
+ {S1} a = a + b - c
+
+ {R2} = {a>0 && a-b-c>0 && -c>0 && a-b-c==a-b-c}
+
+ {S2} d = b
+
+ {R3} = {a>0 && a-b-c>0 && -c>0 && a-b-c==a-d-c}
+
+ {S3} b = a - b - c
+ 
+ {R4} = a>0 ç b>0 && -c>0 && b==a-d-c
+
+ {S4} c = -c
+ 
+ {Q} = {a > 0 && b > 0 && c > 0 && b == a - d + c}
+"""
+
+def test_aufgabe_3(a, b, c):
     assert (a > 0 and b > 0 and c < 0) == True
+    assert (a+b-c>0 and a+b-c-b-c>0 and -c>0 and a+b-c-b-c==a+b-c-b-c) == True
     a = a + b - c
+    assert (a>0 and a-b-c>0 and -c>0 and a-b-c==a-b-c) == True
     d = b
-    print(a, b, c)
+    assert (a>0 and a-b-c>0 and -c>0 and a-b-c==a-d-c) == True
     b = a - b - c
-    print(b)
+    assert (a>0 and b>0 and -c>0 and b==a-d-c)
     c = -c
     assert (a > 0 and b > 0 and c > 0 and b == a - d + c) == True
 
+################################
+## Aufgabe 4
+################################
 """
 # erst if Bedingung Beweisen
 {P} = {x >= 0 && (x*y + z) == c}

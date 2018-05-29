@@ -12,15 +12,37 @@ import time
 
 def counting_sort(A, k):
     k += 1
+    # Build C Array with length of k and place 0 everywhere
     C = [0 for i in range(0, k)]
     for j in range(0, len(A)):
+        # For every number in A, add 1 to the corresponding position in C
         C[A[j]] += 1
     i = 0
+    # Loop over C
     for j in range(0, k):
+        # Loop over position in C to fetch occurrences of number
         for c in range(0, C[j]):
             A[i] = j
             i += 1
     return A
+
+# Aus Übung 4
+def gen_randlist(a,b,n):
+    randlist = []
+    for i in range(0,n):
+        randlist.append(random.randint(a,b))
+    return randlist
+# Ende des Codes aus Übung 4
+
+def test_counting_sort():
+    tmp = gen_randlist(1,10,10)
+    print("Test counting_sort with", tmp)
+    print(counting_sort(tmp, max(tmp)))
+    assert sorted(tmp) == counting_sort(tmp, max(tmp))
+    tmp = gen_randlist(1,25,25)
+    print("Test counting_sort with", tmp)
+    print(counting_sort(tmp, max(tmp)))
+    assert sorted(tmp) == counting_sort(tmp, max(tmp))
 
 ################################
 ## Aufgabe 2
@@ -39,15 +61,20 @@ def generate_Mio_Array():
     return A
 
 def sort_Mio_Array(A):
-    B = list(A)
-    t1 = time.time()
     heapsort(A)
+
+def test_sort_Mio_Array():
+    print("Starte Test, das wird etwas dauern...")
+    B = generate_Mio_Array()
+    t1 = time.time()
+    heapsort(B)
     t2 = time.time()
-    print("Die Ausführungszeit mit Heapsort betrug:", (t2-t1))
+    print("Die Ausführungszeit mit Heapsort betrug:", (t2-t1), " Sekunden")
+    B = generate_Mio_Array()
     t1 = time.time()
     B.sort()
     t2 = time.time()
-    print("Die Ausführungszeit mit sort() betrug:", (t2-t1))
+    print("Die Ausführungszeit mit sort() betrug:", (t2-t1), " Sekunden")
 
 ## Verwenden der Heapsort Funktionen aus der Vorlesung
 def max_heapify (H, pos): 
@@ -87,7 +114,7 @@ def left(i):
 
 def right(i): 
     return i*2+1
-
+## Ende des Codes aus der Vorlesung
 
 ################################
 ## Aufgabe 3
@@ -347,5 +374,3 @@ def test_matrixSquare():
     #print(matrixSquare([[0,0,1],[0,0,0],[0,0,1]]))
     
 test_matrixSquare()
-
-################################

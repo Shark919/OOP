@@ -26,6 +26,11 @@ def counting_sort(A, k):
             i += 1
     return A
 
+# b)
+# Zusätzlich benötigter Speicherplatz in Form des Hilfsarrays C[0..k]
+# Da counting_sort nicht Vergleichsbasiert arbeitet, kann eine lineare
+# Problemkomplexität angenommen werden, d.h. O(n+k)
+
 # Aus Übung 4
 def gen_randlist(a,b,n):
     randlist = []

@@ -27,7 +27,7 @@ def counting_sort(A, k):
     return A
 
 # b)
-# Zusätzlich benötigter Speicherplatz in Form des Hilfsarrays C[0..k]
+# Zusätzlich benötigter Speicherplatz in Höhe des Hilfsarrays C[0..k]
 # Da counting_sort nicht Vergleichsbasiert arbeitet, kann eine lineare
 # Problemkomplexität angenommen werden, d.h. O(n+k)
 

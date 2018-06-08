@@ -17,4 +17,3 @@ def collatz(n):
             innerListe.append(i)
         liste.append(innerListe)
     return liste
-

@@ -1,5 +1,3 @@
-package u6;
-
 import java.util.Arrays;
 
 public class SomeCalculations {
@@ -19,6 +17,7 @@ public class SomeCalculations {
 		}
 		return isMultipleOf3;
 	}
+	
 	public static void main(String[] args) {
 		int[] testArray = {0,1,2,3,5,10,16,84,88,12564};
 		int[] solvedArrayQuersumme = {0,1,2,3,5,1,7,12,16,20};

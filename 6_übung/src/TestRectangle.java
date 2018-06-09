@@ -1,5 +1,3 @@
-package u6;
-
 /**
  * @author M. Esponda
  * @version 1.0

@@ -1,0 +1,19 @@
+1.a) Es ist sinnvoll Klassenmethoden zu deklarieren, sobald Methoden semantisch zu einer Klasse zugeordnet werden können. Damit wird Code klarer und verständlicher. Die Einschränkung ist dabei, dass immer erst ein Objekt der Klasse instanziiert werden muss, bevor die Methode aufgerufen werden kann.
+
+b) Lokale Variablen müssen nicht als private deklariert werden, da sie ohnehin von außerhalb der Klasse nicht lesbar bzw. änderbar sind. Ja, Klassenmethoden können als private deklariert werden. Dies macht Sinn, wenn die Methode nicht von außerhalb aufrufbar werden soll, jedoch innerhalb der Klasse gebraucht wird. Dies sind meist Helfermethoden.
+c) Es ist nicht notwendig einen Konstruktor explizit zu definieren. Wenn keiner definiert wird, gilt der Standardkonstruktor ( public MeineKlasse() { } )
+Ja, Konstruktoren können Vererbt werden. In der Unterklasse wird dazu im Konstruktor „super()“ aufgerufen. Ja, Konstruktoren können private sein.
+d) protected Instanzvariablen sind innerhalb der Klasse, im package und in allen Subklassen aufrufbar, jedoch nicht von außerhalb. Ja, Konstruktoren können protected sein
+e+f) abstrakte Klassen sind Klassen, die sich nicht instanziieren lassen. Eine Klasse ist abstrakt, wenn sie eine Methode enthält, die eine erbende Klasse implementieren muss. In abstrakten Klassen können Variablen deklariert und Methoden implementiert werden. Der Zweck von abstrakten Klassen ist es, als Strukturelement in der Vererbungshierarchie zu fungieren. Man kann keine Konstruktoren in abstrakten Klassen definieren.
+g) Beispiel: 
+Klasse B: Auto
+Klasse A: Mercedes (extends Auto)
+Auto auto = new Auto()
+auto = new Mercedes()
+Ja, macht Sinn, weil Mercedes auch ein Auto ist.
+h) ja
+i)  Beim automatischen boxing/unboxing werden Primitive Datentypen (int, double, string…) vom Java Compiler zu ihren Objekt Wrappern konvertiert (Interger, Double, String). Diese haben beispielsweise Methoden, welche auf die variablen angewendet werden können (z.B. parseInt() bei Integer)
+Probleme sind dabei schlechte Performance
+j) Generische Klassen verhindern ClassCastExceptions zur Laufzeit, indem sie einen Typ bei der deklarierung verlangen. Beispiel: ArrayList<String> -> Liste mit Elementen vom Typ String. Ohne Generische Klassen besteht das Problem, dass zur Laufzeit nicht klar ist, welchen Typ die Elemente in der Liste haben und es kann zu Fehlern kommen.
+k) Polymorphie ermöglicht in der objektorientierten Programmierung, dass ein Bezeichner je nach Verwendung im Code zu unterschiedlichen Datentypen wird
+l) Ausnahmefehler sind Fehler die abgefangen werden. Dadurch wird verhindert, dass das Programm fehlerhaft weiterläuft. Allgemeine Exceptions können jederzeit auftreten, während Runtime-Exceptions nur zur tatsächlichen Laufzeit, also während des Ausführens des Programms auftreten können.

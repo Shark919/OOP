@@ -3,7 +3,6 @@ import static u9.Event.EventTypes;
 
 import java.util.Random;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 /**
  * 
  * @author Chrisoph Meise, Tim Walz
@@ -21,7 +20,7 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 public class Simulator {
 
 	public static void main(String[] args) throws InterruptedException {
-		LinkedListEventQueue myList = new LinkedListEventQueue<Event>();
+		LinkedListEventQueue<Event> myList = new LinkedListEventQueue<Event>();
 		
 		System.out.println("The new generated list should be empty: " + myList.isEmpty());
 		

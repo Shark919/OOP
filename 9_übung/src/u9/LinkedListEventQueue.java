@@ -1,21 +1,22 @@
 package u9;
+import java.awt.print.Printable;
 import java.util.Iterator;
 
 public class LinkedListEventQueue<E> implements EventQueue, Iterable<E> {
 	
-	private ListNode<E> head;
-	private ListNode<E> tail;
+	private ListNode head;
+	private ListNode tail;
 
 	public LinkedListEventQueue() {
-		head = new ListNode<E>();
+		head = new ListNode();
 		tail = null;
 	}
 
-	private class ListNode<E> {
+	private class ListNode {
 		Event elem;
-		ListNode<E> next;
+		ListNode next;
 		
-		public ListNode(Event event, ListNode<E> next) {
+		public ListNode(Event event, ListNode next) {
 			this.elem = event;
 			this.next = next;
 		}
@@ -30,10 +31,29 @@ public class LinkedListEventQueue<E> implements EventQueue, Iterable<E> {
 		}
 	}
 	
+	private class QueueIterator implements Iterator<E> {
+		ListNode current;
+		
+		@Override
+		public boolean hasNext() {
+			return current != null;
+		}
+
+		@Override
+		public E next() {
+			if (current == null) {
+				return null;
+			}
+			E res = (E) current.elem;
+			current = current.next;
+			return res;
+		}
+	}
+	
 	@Override
 	public int size() {
 		int size = 0;
-		ListNode<E> current = head;
+		ListNode current = head;
 		while (current.next != null) {
 			current = current.next;
 			size ++;
@@ -48,7 +68,7 @@ public class LinkedListEventQueue<E> implements EventQueue, Iterable<E> {
 
 	@Override
 	public void insert(Event event) {
-		ListNode<E>tmp = new ListNode<E>(event, null);
+		ListNode tmp = new ListNode(event, null);
 		if(isEmpty()) {
 			head.next = tail = tmp;
 		} else {
@@ -56,7 +76,7 @@ public class LinkedListEventQueue<E> implements EventQueue, Iterable<E> {
 				tail.next = tmp;
 				tail = tmp;
 			} else {
-				ListNode<E> current = head.next;
+				ListNode current = head.next;
 				while (current.next != null) {
 					if (current.next.elem.getTime().isAfter(event.getTime())) {
 						tmp.next = current.next;
@@ -92,10 +112,8 @@ public class LinkedListEventQueue<E> implements EventQueue, Iterable<E> {
 
 	@Override
 	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
 
 	
